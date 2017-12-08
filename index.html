@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Document</title>
+	</head>
+	<body>
+		<h1>Psychic Game</h1>
+		<h3>Guess what im thinking of...</h3>
+		<div id="wins"></div>
+		<div id="Losses"></div>
+		<div id="GuessesLeft"></div>
+		<div id="guess-so-far"></div>
+		<div id="Computer"></div>
+		
+		<div id="User"></div>
+		<script type="text/javascript">
+			
+		var game = function() {
+						var PsychArray = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+						var wins = 0;
+						var losses = 0;
+						var guesses = 9;
+						var  guessesSoFar = []
+						
+						var computerChoice= function() {
+			var randomNumber = Math.floor(Math.random()*26)
+			return PsychArray[randomNumber]
+			
+			}
+			var weapon = computerChoice()
+			document.onkeyup = function(event) {
+			var userChoice = (event.key)
+			console.log(weapon)
+			console.log(userChoice)
+			
+			
+			var printWins = function(wins) {
+			document.getElementById("wins").textContent="wins: " + wins
+			}
+			
+			var printGuesses = function(guesses) {
+			document.getElementById("GuessesLeft").textContent="guesses left: " + guesses
+			}
+		
+			var printLoss = function(loss) {
+			document.getElementById("Losses").textContent="loss: " + losses
+			
+			}
+			printGuesses(guesses);
+			printWins(wins);
+			printLoss(losses);
+				
+			
+			if(userChoice == weapon)
+			{
+				wins++
+					weapon = computerChoice()
+			}
+			else{
+								guesses--;
+								guessesSoFar.push(userChoice);
+								document.getElementById("guess-so-far").textContent = guessesSoFar;
+								weapon = computerChoice()
+			
+								
+								}
+							
+						if(guessesSoFar.length > 8){
+							losses++;
+							guessesSoFar = [];
+							guesses = 9;
+						}
+							updateWins(wins);
+							updateGuesses(guesses);
+								updateLosses(losses);
+			
+			
+						function updateWins(){
+								var winPoints = document.getElementById("wins").textContent;
+			
+								updateWins.textContent = wins;
+							}
+			
+						function updateGuesses(){
+								var guessesLeft = document.getElementById("GuessesLeft").textContent;
+			
+								updateGuesses.textContent = guesses;
+							}
+			
+						function updateLosses(){
+								var losePoints = document.getElementById("Losses").textContent;
+			
+								updateLosses.textContent = losses;
+							}
+			
+					}
+			
+					
+					
+			}
+			
+				game()
+			
+		
+		</script>
+	</body>
+</html>
